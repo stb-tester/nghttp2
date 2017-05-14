@@ -350,6 +350,8 @@ constexpr auto SHRPX_OPT_TLS_ANTI_REPLAY_MEMCACHED_PRIVATE_KEY_FILE =
     StringRef::from_lit("tls-anti-replay-memcached-private-key-file");
 constexpr auto SHRPX_OPT_TLS_ANTI_REPLAY_MEMCACHED_ADDRESS_FAMILY =
     StringRef::from_lit("tls-anti-replay-memcached-address-family");
+constexpr auto SHRPX_OPT_NO_STRIP_INCOMING_NGHTTPX_0RTT_UNIQ =
+    StringRef::from_lit("no-strip-incoming-nghttpx-0rtt-uniq");
 
 constexpr size_t SHRPX_OBFUSCATED_NODE_LENGTH = 8;
 
@@ -677,6 +679,9 @@ struct HttpConfig {
     bool add;
     bool strip_incoming;
   } xfp;
+  struct {
+    bool strip_incoming;
+  } zero_rtt_uniq;
   std::vector<AltSvc> altsvcs;
   std::vector<ErrorPage> error_pages;
   HeaderRefs add_request_headers;
@@ -1069,6 +1074,7 @@ enum {
   SHRPX_OPTID_NO_OCSP,
   SHRPX_OPTID_NO_SERVER_PUSH,
   SHRPX_OPTID_NO_SERVER_REWRITE,
+  SHRPX_OPTID_NO_STRIP_INCOMING_NGHTTPX_0RTT_UNIQ,
   SHRPX_OPTID_NO_STRIP_INCOMING_X_FORWARDED_PROTO,
   SHRPX_OPTID_NO_VIA,
   SHRPX_OPTID_NPN_LIST,
